@@ -1,18 +1,24 @@
-const { Sale, SalesProducts, Product, User } = require('../models');
+const { Sale, SalesProducts, Product, User } = require('../database/models');
 const { HTTP_CREATED, HTTP_OK_STATUS, HTTP_NOT_FOUND } = require('../middlewares/status');
 
-
 async function create(body) {
-  const statusOrder = 'Pendente';
   const { userId, sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = body;
-  const saleId = await Sale.create({ user_id: userId, seller_id: sellerId, total_price: totalPrice, delivery_address: deliveryAddress, delivery_number: deliveryNumber, sale_date: new Date(), status: statusOrder });
+  const createdUser = await Sale.create(
+    { 
+      user_id: userId,
+      seller_id: sellerId,
+      total_price: totalPrice,
+      delivery_address: deliveryAddress,
+      delivery_number: deliveryNumber,
+      sale_date: new Date(),
+    });
 
   products.forEach(async (product) => {
     const { id, quantity } = product;
-    await SalesProducts.create({ sale_id: saleId.dataValues.id , product_id: id, quantity: quantity })
+    await SalesProducts.create({ sale_id: createdUser.dataValues.id , product_id: id, quantity: quantity })
   });
 
-  return { data: saleId.dataValues.id, code: HTTP_CREATED };
+  return { data: createdUser.dataValues.id, code: HTTP_CREATED };
 };
 
 async function getSeller(id) {

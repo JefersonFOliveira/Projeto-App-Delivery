@@ -1,10 +1,11 @@
 const { HTTP_NOT_FOUND } = require('../middlewares/status');
-const useService = require('../services/useService');
+const userService = require('../service/userService');
 
 async function create(req, res) {
   try {
     const { name, email, password } = req.body;
-    const { isRegistered, code, error, data } = await useService.createUser({ name, email, password });
+    const { isRegistered, code, error, data } = await userService
+    .createUser({ name, email, password });
 
     if (isRegistered) return res.status(code).json({ error });
 
@@ -17,7 +18,8 @@ async function create(req, res) {
 async function login(req, res) {
   try {
     const { email, password } = req.body;
-    const { notFound, invalidPassword, code, error, data } = await useService.loginService({ email, password });
+    const { notFound, invalidPassword, code, error, data } = await userService
+    .loginService({ email, password });
 
     if (notFound) return res.status(code).json({ error });
 
@@ -29,8 +31,7 @@ async function login(req, res) {
   }
 }
 
-
 module.exports = {
   create,
-  login
-}
+  login,
+};
