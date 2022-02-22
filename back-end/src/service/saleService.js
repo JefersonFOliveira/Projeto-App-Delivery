@@ -11,18 +11,20 @@ async function create(body) {
       delivery_address: deliveryAddress,
       delivery_number: deliveryNumber,
       sale_date: new Date(),
-    });
+    }
+    );
 
   products.forEach(async (product) => {
     const { id, quantity } = product;
-    await SalesProducts.create({ sale_id: createdUser.dataValues.id , product_id: id, quantity: quantity })
+    await SalesProducts
+    .create({ sale_id: createdUser.dataValues.id, product_id: id, quantity: quantity });
   });
 
   return { data: createdUser.dataValues.id, code: HTTP_CREATED };
 };
 
 async function getSeller(id) {
-  const user = await User.findOne({
+  const user = await User.findOne( {
     where: { id },
     attributes: {exclude: ['password', 'email']}
   });
