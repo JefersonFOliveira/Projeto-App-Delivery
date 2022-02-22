@@ -30,7 +30,18 @@ const validateLogin = (req, res, next) => {
   }
 };
 
+const validateName = (req, res, next) => {
+  try {
+    const { name } = req.body;
+
+    if (name.length < 12) return res.status(HTTP_BAD_REQUEST).json({ message: '"name" length must be 12 characters long' });
+  } catch (err) {
+    return res.status(HTTP_SERVER_ERROR).json({ message: err.message });
+  }
+};
+
 module.exports = {
   validateRegistration,
   validateLogin,
+  validateName,
 };
