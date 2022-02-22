@@ -21,12 +21,12 @@ async function create(body) {
   });
 
   return { data: createdUser.dataValues.id, code: HTTP_CREATED };
-};
+}
 
 async function getSeller(id) {
-  const user = await User.findOne( {
+  const user = await User.findOne({
     where: { id },
-    attributes: {exclude: ['password', 'email']}
+    attributes: { exclude:['password', 'email'] },
   });
 
   return user;
@@ -44,20 +44,20 @@ async function getByUserId(id, role) {
   const order = await Sale.findAll({
     where: { [checkUserId]: id },
     include: [
-      { model: Product, as:'products', through: { attributes: ['quantity'], as: 'quantityTotal' } },
+      { model: Product, as: 'products', through: { attributes: ['quantity'], as: 'quantityTotal' } },
     ],
   });
 
   if (order.length <= 0) return { code: HTTP_NOT_FOUND, error: 'Sale does not exist' };
 
   return { data: order, code: HTTP_OK_STATUS };
-};
+}
 
 async function getByOrderId(id) {
   const order = await Sale.findOne({
     where: { id },
     include: [
-      { model: Product, as:'products', through: { attributes: ['quantity'], as: 'quantityTotal' } },
+      { model: Product, as: 'products', through: { attributes: ['quantity'], as: 'quantityTotal' } },
     ],
   });
 
@@ -65,7 +65,7 @@ async function getByOrderId(id) {
 
   const { seller_id: sellerId } = order;
   const seller = await getSeller(sellerId);
-  const orderInfo = {...order.dataValues, seller};
+  const orderInfo = { ...order.dataValues, seller };
 
   return { data: orderInfo, code: HTTP_OK_STATUS };
 }
