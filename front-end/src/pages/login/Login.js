@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validLogin } from '../../helpers/loginValidation';
+import logo from '../../images/rockGlass.svg';
 import './login.css';
 
 function Login() {
@@ -32,7 +33,7 @@ function Login() {
   return (
     <div className="loginComponent">
       <form className="loginForm">
-        <img src="../../images/rockGlass.svg" alt="login logo" />
+        <img src={ logo } alt="login logo" />
         <div className="inputs">
           <input
             type="email"
