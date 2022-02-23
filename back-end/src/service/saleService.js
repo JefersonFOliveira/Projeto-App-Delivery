@@ -11,7 +11,7 @@ async function create(body) {
       delivery_address: deliveryAddress,
       delivery_number: deliveryNumber,
       sale_date: new Date(),
-    }
+    },
     );
 
   products.forEach(async (product) => {
@@ -26,7 +26,7 @@ async function create(body) {
 async function getSeller(id) {
   const user = await User.findOne({
     where: { id },
-    attributes: { exclude:['password', 'email'] },
+    attributes: { exclude: ['password', 'email'] },
   });
 
   return user;
@@ -44,7 +44,7 @@ async function getByUserId(id, role) {
   const order = await Sale.findAll({
     where: { [checkUserId]: id },
     include: [
-      { model: Product, as: 'products', through: { attributes: ['quantity'], as: 'quantityTotal' } },
+    { model: Product, as: 'products', through: { attributes: ['quantity'], as: 'quantityTotal' } },
     ],
   });
 
@@ -57,7 +57,7 @@ async function getByOrderId(id) {
   const order = await Sale.findOne({
     where: { id },
     include: [
-      { model: Product, as: 'products', through: { attributes: ['quantity'], as: 'quantityTotal' } },
+    { model: Product, as: 'products', through: { attributes: ['quantity'], as: 'quantityTotal' } },
     ],
   });
 

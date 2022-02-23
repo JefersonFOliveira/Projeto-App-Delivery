@@ -11,7 +11,7 @@ async function getAll(_req, res) {
   } catch (err) {
     return res.status(HTTP_NOT_FOUND).json({ error: err.message });
   }
-};
+}
 
 module.exports = {
   getAll,
