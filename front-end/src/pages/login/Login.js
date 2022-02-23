@@ -21,7 +21,7 @@ function Login() {
 
   const loginBtn = async (e) => {
     try {
-      e.preventDefault();
+      // e.preventDefault();
       // verificação com o banco
     } catch (err) {
       // resposta do erro
