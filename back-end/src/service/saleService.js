@@ -5,19 +5,19 @@ async function create(body) {
   const { userId, sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = body;
   const createdUser = await Sale.create(
     { 
-      user_id: userId,
-      seller_id: sellerId,
-      total_price: totalPrice,
-      delivery_address: deliveryAddress,
-      delivery_number: deliveryNumber,
-      sale_date: new Date(),
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      saleDate: new Date(),
     },
     );
 
   products.forEach(async (product) => {
     const { id, quantity } = product;
     await SalesProducts
-    .create({ sale_id: createdUser.dataValues.id, product_id: id, quantity: quantity });
+    .create({ saleId: createdUser.dataValues.id, productId: id, quantity });
   });
 
   return { data: createdUser.dataValues.id, code: HTTP_CREATED };
