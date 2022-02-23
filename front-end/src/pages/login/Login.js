@@ -60,7 +60,7 @@ function Login() {
             type="button"
             onClick={ registerBtn }
           >
-            Ainda não tenho conta
+            Registre-se
           </button>
         </div>
       </form>

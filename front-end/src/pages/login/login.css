@@ -29,7 +29,9 @@
   border-radius: 4px;
   font-weight: 600;
   height: 2em;
-  margin-bottom: 0.6em;
+  margin-bottom: 1em;
+  padding: 4px 50px;
+
 }
 
 .inputs {
