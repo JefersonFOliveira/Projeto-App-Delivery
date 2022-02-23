@@ -1,0 +1,51 @@
+.loginComponent {
+  margin-top: 20em;
+}
+
+.loginForm {
+  align-items: center;
+  background-color: #2d93dd;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 15%;
+}
+
+.loginForm img {
+  margin-top: 2em;
+}
+
+.buttons {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  margin: 2em 3em;
+}
+
+.buttons button {
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  height: 2em;
+  margin-bottom: 0.6em;
+}
+
+.inputs {
+  align-content: center;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 60px;
+  justify-content: space-evenly;
+  margin-top: 3em;
+  width: 180px;
+}
+
+.inputs input {
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 0.6em;
+  padding: 0.6em;
+}
+
