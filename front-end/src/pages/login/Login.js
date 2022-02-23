@@ -37,6 +37,7 @@ function Login() {
         <div className="inputs">
           <input
             type="email"
+            data-testid="common_login__input-email"
             placeholder="email@deliveryapp.com.br"
             name="email"
             value={ email }
@@ -44,6 +45,7 @@ function Login() {
           />
           <input
             type="password"
+            data-testid="common_login__input-password"
             placeholder="********"
             name="password"
             value={ password }
@@ -53,6 +55,7 @@ function Login() {
         <div className="buttons">
           <button
             type="submit"
+            data-testid="common_login__button-login"
             onClick={ loginBtn }
             disabled={ !validLogin(email, password) }
           >
@@ -60,6 +63,7 @@ function Login() {
           </button>
           <button
             type="button"
+            data-testid="common_login__button-register"
             onClick={ registerBtn }
           >
             Registre-se
