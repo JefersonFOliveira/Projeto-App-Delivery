@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 import cartBuy from './cartBuy';
 
 const reducer = combineReducers({ cartBuy });
