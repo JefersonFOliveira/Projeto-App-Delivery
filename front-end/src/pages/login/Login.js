@@ -7,6 +7,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState('');
+  const [warning, setWarning] = useState('none');
 
   const handleChange = ({ target: { value, name } }) => {
     if (name === 'email') setEmail(value);
@@ -16,6 +17,15 @@ function Login() {
   const registerBtn = (e) => {
     e.preventDefault();
     navigate('/register');
+  };
+
+  const loginBtn = async (e) => {
+    try {
+      e.preventDefault();
+      // verificação com o banco
+    } catch (err) {
+      // resposta do erro
+    }
   };
 
   return (
@@ -41,6 +51,7 @@ function Login() {
         <div className="buttons">
           <button
             type="submit"
+            onClick={ loginBtn }
             disabled={ !validLogin(email, password) }
           >
             LOGIN
@@ -53,6 +64,14 @@ function Login() {
           </button>
         </div>
       </form>
+      <p
+        id="warning"
+        className="warning"
+        data-testid="common_login__element-invalid-email"
+        style={ { display: warning } }
+      >
+        Email ou Senha incorreta
+      </p>
     </div>
   );
 }
