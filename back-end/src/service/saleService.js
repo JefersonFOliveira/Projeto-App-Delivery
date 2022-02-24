@@ -1,5 +1,5 @@
 const { Sale, SalesProducts, Product, User } = require('../database/models');
-const { HTTP_CREATED, HTTP_OK_STATUS, HTTP_NOT_FOUND } = require('../middlewares/status');
+const status = require('../utilities/statusCodes');
 
 async function create(body) {
   const { userId, sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = body;
@@ -20,7 +20,7 @@ async function create(body) {
     .create({ saleId: createdUser.dataValues.id, productId: id, quantity });
   });
 
-  return { data: createdUser.dataValues.id, code: HTTP_CREATED };
+  return { data: createdUser.dataValues.id, code: status.CREATED };
 }
 
 async function getSeller(id) {
@@ -48,9 +48,9 @@ async function getByUserId(id, role) {
     ],
   });
 
-  if (order.length <= 0) return { code: HTTP_NOT_FOUND, error: 'Sale does not exist' };
+  if (order.length <= 0) return { code: status.NOT_FOUND, error: 'Sale does not exist' };
 
-  return { data: order, code: HTTP_OK_STATUS };
+  return { data: order, code: status.OK };
 }
 
 async function getByOrderId(id) {
@@ -61,13 +61,13 @@ async function getByOrderId(id) {
     ],
   });
 
-  if (!order) return { code: HTTP_NOT_FOUND, error: 'Sale does not exist' };
+  if (!order) return { code: status.NOT_FOUND, error: 'Sale does not exist' };
 
   const { seller_id: sellerId } = order;
   const seller = await getSeller(sellerId);
   const orderInfo = { ...order.dataValues, seller };
 
-  return { data: orderInfo, code: HTTP_OK_STATUS };
+  return { data: orderInfo, code: status.OK };
 }
 
 module.exports = {

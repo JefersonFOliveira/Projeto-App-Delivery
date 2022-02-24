@@ -1,10 +1,6 @@
 const { User } = require('../database/models');
 const { createToken } = require('../validations/validadeJWT');
-const {
-  HTTP_CREATED,
-  HTTP_CONFLICT,
-  HTTP_OK_STATUS,
-  HTTP_NOT_FOUND } = require('../middlewares/status');
+const status = require('../utilities/statusCodes');
 
 async function getUserByEmail(email) {
   const user = await User.findOne({ where: { email } });
@@ -16,7 +12,7 @@ async function createUser({ name, email, password }) {
   const role = 'customer';
 
   if (userResgistered) {
-    return { isRegistered: true, code: HTTP_CONFLICT, error: 'User already registered' };
+    return { isRegistered: true, code: status.CONFLICT, error: 'User already registered' };
   }
 
   const user = await User.create({ name, email, password, role });
@@ -25,26 +21,26 @@ async function createUser({ name, email, password }) {
   const token = await createToken(userLogin);
   const data = { name, email, role, token, id: user.dataValues.id };
 
-  return { data, code: HTTP_CREATED };
+  return { data, code: status.CREATED };
 }
 
 async function loginService({ password, email }) {
   const userResgistered = await getUserByEmail(email);
 
   if (!userResgistered) {
-    return { notFound: true, code: HTTP_NOT_FOUND, error: 'User dont exists' };
+    return { notFound: true, code: status.NOT_FOUND, error: 'User dont exists' };
   }
 
   if (password !== userResgistered.password) {
-    return { invalidPassword: true, code: HTTP_NOT_FOUND, error: 'Invalid data' };
+    return { invalidPassword: true, code: status.NOT_FOUND, error: 'Invalid data' };
   }
 
-  const { name, role } = await getUserByEmail(email);
+  const { name, role } = userResgistered;
   const userLogin = { name, role, email };
   const token = await createToken(userLogin);
   const data = { name, email, role, token, id: userResgistered.dataValues.id };
 
-  return { data, code: HTTP_OK_STATUS };
+  return { data, code: status.OK };
 }
 
 module.exports = {

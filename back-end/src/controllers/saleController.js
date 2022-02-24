@@ -1,4 +1,4 @@
-const { HTTP_NOT_FOUND } = require('../middlewares/status');
+const status = require('../utilities/statusCodes');
 const saleService = require('../service/saleService');
 
 async function create(req, res) {
@@ -7,7 +7,7 @@ async function create(req, res) {
 
     return res.status(code).json(data);
   } catch (err) {
-    return res.status(HTTP_NOT_FOUND).json({ error: err.message });
+    return res.status(status.NOT_FOUND).json({ error: err.message });
   }
 }
 
@@ -21,7 +21,7 @@ async function getByUserId(req, res) {
 
     return res.status(code).json(data);
   } catch (err) {
-    return res.status(HTTP_NOT_FOUND).json({ error: err.message });
+    return res.status(status.NOT_FOUND).json({ error: err.message });
   }
 }
 
@@ -34,7 +34,7 @@ async function getByOrderId(req, res) {
 
     return res.status(code).json(data);
   } catch (err) {
-    return res.status(HTTP_NOT_FOUND).json({ error: err.message });
+    return res.status(status.NOT_FOUND).json({ error: err.message });
   }
 }
 

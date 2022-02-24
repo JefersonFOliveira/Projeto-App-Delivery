@@ -1,21 +1,39 @@
-const {
-  HTTP_SERVER_ERROR,
-  HTTP_BAD_REQUEST,
-} = require('../middlewares/status');
+const status = require('../utilities/statusCodes');
 
-const validEmail = (email) => /\S+@\S+\.\S+/.test(email);
+const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+const validateNamePassword = (name, password) => {
+  if (!name || !password) {
+    return 'Password and name required';
+  }
+  if (password.length < 6) {
+    return 'Password length must be at least 6 characters long';
+  }
+  if (name.length < 12) {
+    return 'Name length must be at least 12 characters long';
+  }
+  return false;
+};
 
 const validateRegistration = (req, res, next) => {
   try {
     const { email, password, name } = req.body;
 
-    if (!validEmail(email) || password.length < 6 || name.length < 12) {
-      throw new Error('invalid data');
-    } else {
-      next();
+    const message = validateNamePassword(name, password);
+
+    if (message) {
+      return res.status(status.BAD_REQUEST)
+        .json({ error: message });
     }
+
+    if (!validateEmail(email)) {
+      return res.status(status.BAD_REQUEST)
+        .json({ error: 'Invalid email' });
+    }
+
+    next();
   } catch (err) {
-    return res.status(HTTP_SERVER_ERROR).json({ error: err.message });
+    return res.status(status.SERVER_ERROR).json({ error: err.message });
   }
 };
 
@@ -23,32 +41,25 @@ const validateLogin = (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    if (!validEmail(email) || password.length < 6) {
-      throw new Error('invalid data');
-    } else {
-      next();
-    }
-  } catch (err) {
-    return res.status(HTTP_SERVER_ERROR).json({ error: err.message });
-  }
-};
+    const message = validateNamePassword('placeholderName', password);
 
-const validateName = (req, res) => {
-  try {
-    const { name } = req.body;
-
-    if (name.length < 12) {
-      return res
-        .status(HTTP_BAD_REQUEST)
-        .json({ message: '"name" length must be 12 characters long' });
+    if (message) {
+      return res.status(status.BAD_REQUEST)
+        .json({ error: message });
     }
+
+    if (!validateEmail(email)) {
+      return res.status(status.BAD_REQUEST)
+        .json({ error: 'Invalid email' });
+    }
+
+    next();
   } catch (err) {
-    return res.status(HTTP_SERVER_ERROR).json({ message: err.message });
+    return res.status(status.SERVER_ERROR).json({ error: err.message });
   }
 };
 
 module.exports = {
   validateRegistration,
   validateLogin,
-  validateName,
 };
