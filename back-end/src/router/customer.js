@@ -5,26 +5,14 @@ const tokenValidate = require('../validations/validadeJWT');
 
 const router = Router();
 
-router.post(
-  '/',
-  tokenValidate.verifyToken,
-  saleController.create,
-);
-
-// router.get(
-//   '/costumer/:id',
-//   tokenValidate.verifyToken,
-//   saleController.getByUserId,
-// );
-
 router.get(
-  '/:id',
+  '/costumer/:id',
   tokenValidate.verifyToken,
-  saleController.getByOrderId,
+  saleController.getByUserId,
 );
 
 router.get(
-  '/seller/:id',
+  '/orders',
   tokenValidate.verifyToken,
   saleController.getByUserId,
 );

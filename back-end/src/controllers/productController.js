@@ -1,4 +1,4 @@
-const status = require('../utilities/statusCodes');
+const statusCode = require('../utilities/statusCodes');
 const productService = require('../service/productService');
 
 async function getAll(_req, res) {
@@ -9,7 +9,7 @@ async function getAll(_req, res) {
 
     return res.status(code).json(data);
   } catch (err) {
-    return res.status(status.NOT_FOUND).json({ error: err.message });
+    return res.status(statusCode.NOT_FOUND).json({ error: err.message });
   }
 }
 
