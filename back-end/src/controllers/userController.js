@@ -1,4 +1,4 @@
-const status = require('../utilities/statusCodes');
+const statusCode = require('../utilities/statusCodes');
 const userService = require('../service/userService');
 
 async function create(req, res) {
@@ -11,7 +11,7 @@ async function create(req, res) {
 
     if (!isRegistered) return res.status(code).json(data);
   } catch (err) {
-    return res.status(status.NOT_FOUND).json({ error: err.message });
+    return res.status(statusCode.NOT_FOUND).json({ error: err.message });
   }
 }
 
@@ -26,7 +26,7 @@ async function login(req, res) {
 
     return res.status(code).json(data);
   } catch (err) {
-    return res.status(status.NOT_FOUND).json({ error: err.message });
+    return res.status(statusCode.NOT_FOUND).json({ error: err.message });
   }
 }
 
@@ -36,7 +36,7 @@ async function getByRole(_req, res) {
 
     return res.status(code).json(sellers);
   } catch (err) {
-    return res.status(HTTP_NOT_FOUND).json({ error: err.message });
+    return res.status(statusCode.NOT_FOUND).json({ error: err.message });
   }
 }
 

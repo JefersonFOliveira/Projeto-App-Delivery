@@ -1,11 +1,11 @@
 const { Product } = require('../database/models');
-const status = require('../utilities/statusCodes');
+const statusCode = require('../utilities/statusCodes');
 
   async function getAll() {
     const products = await Product.findAll();
-    if (!products) return { status: status.CONFLICT, message: 'Products are empty' };
+    if (!products) return { status: statusCode.CONFLICT, message: 'Products are empty' };
   
-    return { data: products, code: status.OK };
+    return { data: products, code: statusCode.OK };
   }
   
   module.exports = {

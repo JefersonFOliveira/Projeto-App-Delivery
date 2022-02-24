@@ -6,6 +6,7 @@ const productRouter = require('../router/product');
 const registrationRouter = require('../router/registration');
 const saleRouter = require('../router/sale');
 const imageRouter = require('../router/image');
+const sellerRouter = require('../router/seller');
 
 const app = express();
 app.use(express.json());
@@ -17,5 +18,6 @@ app.use('/registration', registrationRouter);
 app.use('/products', productRouter);
 app.use('/orders', saleRouter);
 app.use('/images', imageRouter);
+app.use('/images', sellerRouter);
 
 module.exports = app;
