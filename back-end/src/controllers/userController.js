@@ -22,7 +22,6 @@ async function login(req, res) {
     .loginService({ email, password });
 
     if (notFound) return res.status(code).json({ error });
-
     if (invalidPassword) return res.status(code).json({ error });
 
     return res.status(code).json(data);
@@ -31,7 +30,18 @@ async function login(req, res) {
   }
 }
 
+async function getByRole(_req, res) {
+  try {
+    const { sellers, code } = await userService.getByRoleService();
+
+    return res.status(code).json(sellers);
+  } catch (err) {
+    return res.status(HTTP_NOT_FOUND).json({ error: err.message });
+  }
+}
+
 module.exports = {
   create,
   login,
+  getByRole,
 };
