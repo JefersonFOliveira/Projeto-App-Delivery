@@ -37,13 +37,20 @@ async function loginService({ password, email }) {
 
   const { name, role } = userResgistered;
   const userLogin = { name, role, email };
-  const token = await createToken(userLogin);
+  const token = createToken(userLogin);
   const data = { name, email, role, token, id: userResgistered.dataValues.id };
 
   return { data, code: status.OK };
 }
 
+async function getByRoleService() {
+  const sellers = await User.findAll({ where: { role: 'seller' } });
+
+  return { sellers, code: HTTP_OK_STATUS };
+}
+
 module.exports = {
   createUser,
   loginService,
+  getByRoleService,
 };
