@@ -36,12 +36,12 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        field: 'userId',
+        field: 'user_id',
         allowNull: false,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
-          model: 'Users',
+          model: 'users',
           Key: 'id'
         } 
       },
@@ -52,7 +52,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
-          model: 'Users',
+          model: 'users',
           key: 'id',
         },
       },
