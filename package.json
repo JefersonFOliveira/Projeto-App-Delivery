@@ -53,5 +53,8 @@
       "__TESTDESC__": true,
       "__TESTFILE__": true
     }
+  },
+  "dependencies": {
+    "redux": "^4.1.2"
   }
 }
