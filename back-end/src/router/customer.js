@@ -6,7 +6,7 @@ const tokenValidate = require('../validations/validadeJWT');
 const router = Router();
 
 router.get(
-  '/costumer/:id',
+  '/:id',
   tokenValidate.verifyToken,
   saleController.getByUserId,
 );
