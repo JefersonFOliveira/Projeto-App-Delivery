@@ -4,6 +4,8 @@ import { validLogin } from '../../helpers/loginValidation';
 import logo from '../../images/rockGlass.svg';
 import './login.css';
 
+// const LOGIN_URL = 'http://localhost:3001/login';
+
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
