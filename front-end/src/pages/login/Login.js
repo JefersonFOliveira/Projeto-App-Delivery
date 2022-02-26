@@ -4,10 +4,9 @@ import axios from 'axios';
 import { validLogin } from '../../helpers/loginValidation';
 import logo from '../../images/rockGlass.svg';
 import hashMd5 from '../../helpers/hashMd5';
-import localStorage from '../../helpers/getStorage';
+import getlocalStorage from '../../helpers/getStorage';
 import './login.css';
 
-// const LOGIN_URL_DB = 'http://localhost:3001/login';
 const OK = 200;
 
 function Login() {
@@ -22,7 +21,7 @@ function Login() {
   };
 
   useEffect(() => {
-    if (localStorage('user')) {
+    if (getlocalStorage('user')) {
       navigate('/customer/products');
     }
   }, [navigate]);
@@ -41,10 +40,9 @@ function Login() {
         url: 'http://localhost:3001/login',
         data: { email, password: hashPassword },
       });
-      console.log('aqui---', dbResult);
 
       if (dbResult.status === OK) {
-        // localStorage.setItem('user', JSON.stringify(dbResult.data));
+        localStorage.setItem('user', JSON.stringify(dbResult.data));
         if (dbResult.data.role === 'customer') navigate('/customer/products');
         if (dbResult.data.role === 'administrator') navigate('/admin/manage');
         if (dbResult.data.role === 'seler') navigate('/seller/order');
