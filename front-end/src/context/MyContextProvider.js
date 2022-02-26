@@ -5,7 +5,7 @@ import MyContext from '.';
 export default function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState('');
-  const [warning, setWarning] = useState('none');
+  const [warning, setWarning] = useState('block');
 
   const context = {
     email,
