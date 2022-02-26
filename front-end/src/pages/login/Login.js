@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { validLogin } from '../../helpers/loginValidation';
 import logo from '../../images/rockGlass.svg';
+import hashMd5 from '../../helpers/hashMd5';
+import localStorage from '../../helpers/getStorage';
 import './login.css';
 
-// const LOGIN_URL = 'http://localhost:3001/login';
+// const LOGIN_URL_DB = 'http://localhost:3001/login';
+const OK = 200;
 
 function Login() {
   const navigate = useNavigate();
@@ -17,6 +21,12 @@ function Login() {
     if (name === 'password') setPassWord(value);
   };
 
+  useEffect(() => {
+    if (localStorage('user')) {
+      navigate('/customer/products');
+    }
+  }, [navigate]);
+
   const registerBtn = (e) => {
     e.preventDefault();
     navigate('/register');
@@ -25,9 +35,22 @@ function Login() {
   const loginBtn = async (e) => {
     try {
       e.preventDefault();
-      // verificação com o banco
+      const hashPassword = hashMd5(password);
+      const dbResult = await axios({
+        method: 'post',
+        url: 'http://localhost:3001/login',
+        data: { email, password: hashPassword },
+      });
+      console.log('aqui---', dbResult);
+
+      if (dbResult.status === OK) {
+        // localStorage.setItem('user', JSON.stringify(dbResult.data));
+        if (dbResult.data.role === 'customer') navigate('/customer/products');
+        if (dbResult.data.role === 'administrator') navigate('/admin/manage');
+        if (dbResult.data.role === 'seler') navigate('/seller/order');
+      }
     } catch (err) {
-      // resposta do erro
+      console.error(err.message);
       setWarning('block');
     }
   };
