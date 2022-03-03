@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import MyContext from '.';
+import MyContext from './index';
 
 export default function Provider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState('');
   const [warning, setWarning] = useState('block');
+  const [products, setProducts] = useState([]);
 
   const context = {
     email,
@@ -14,6 +15,8 @@ export default function Provider({ children }) {
     setPassWord,
     warning,
     setWarning,
+    products,
+    setProducts,
   };
 
   return (

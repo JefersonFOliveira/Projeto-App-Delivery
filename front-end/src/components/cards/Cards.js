@@ -1,9 +1,9 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import './cards.css';
 
-function Header() {
-  const { price, image, name, id } = products;
+function Cards({ products }) {
+  const { price, urlimage, name, id } = products;
   const [quantity, setQuantity] = useState(0);
   return (
     <div>
@@ -12,12 +12,12 @@ function Header() {
           className="price"
           data-testid={ `customer_products__element-card-price-${id}` }
         >
-          {`R$ ${price}`}
+          {price}
         </span>
         <img
           className="image"
           data-testid={ `customer_products__img-card-bg-image-${id}` }
-          src={ image }
+          src={ urlimage }
           alt={ `${name}` }
         />
       </div>
@@ -50,4 +50,13 @@ function Header() {
   );
 }
 
-export default Header;
+Cards.propTypes = {
+  products: PropTypes.shape({
+    name: PropTypes.string,
+    urlimage: PropTypes.string,
+    price: PropTypes.string,
+    id: PropTypes.number,
+  }).isRequired,
+};
+
+export default Cards;
