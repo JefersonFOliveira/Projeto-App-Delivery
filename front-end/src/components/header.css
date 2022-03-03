@@ -1,6 +1,6 @@
 header {
   align-items: center;
-  background-color: rgb(40, 198, 65);
+  background-color: rgb(3, 107, 82);
   box-shadow: 1px 3px 3px lightgrey;
   display: flex;
   flex-grow: 0;
@@ -15,7 +15,6 @@ header nav {
 }
 
 nav a, .logout {
-  background-color: #1b1c33;
   border-radius: 6px;
   color: #fdfdf8;
   font-weight: 900;
