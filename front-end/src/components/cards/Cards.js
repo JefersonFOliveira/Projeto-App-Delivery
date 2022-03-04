@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import priceFormat from '../../helpers/priceFormat';
 // import Context from '../../context/index';
@@ -6,8 +6,20 @@ import './cards.css';
 
 function Cards({ products }) {
   const { price, urlimage, name, id } = products;
-  // const [quantity, setQuantity] = useState(0);
-  // console.log(urlimage);
+  const [quantity, setQuantity] = useState(0);
+  // const { cart, setCart } = useContext(Context);
+
+  const btnAdd = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const btnRemove = () => {
+    setQuantity(quantity - 1);
+  };
+
+  const quantityChosen = () => {
+    // const sumValues = +value;
+  };
 
   return (
     <div className="productCard">
@@ -34,6 +46,8 @@ function Cards({ products }) {
         className="btnrm"
         type="button"
         data-testid={ `customer_products__button-card-rm-item-${id}` }
+        onClick={ btnRemove }
+        disabled={ quantity === 0 }
       >
         -
       </button>
@@ -41,11 +55,14 @@ function Cards({ products }) {
         className="quantity"
         type="number"
         data-testid={ `customer_products__input-card-quantity-${id}` }
+        value={ quantity }
+        onChange={ quantityChosen }
       />
       <button
         className="btnadd"
         type="button"
         data-testid={ `customer_products__button-card-add-item-${id}` }
+        onClick={ btnAdd }
       >
         +
       </button>
