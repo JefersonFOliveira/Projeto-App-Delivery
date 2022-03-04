@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import priceFormat from '../../helpers/priceFormat';
+// import Context from '../../context/index';
 import './cards.css';
 
 function Cards({ products }) {
   const { price, urlimage, name, id } = products;
-  const [quantity, setQuantity] = useState(0);
+  // const [quantity, setQuantity] = useState(0);
+  // console.log(urlimage);
+
   return (
-    <div>
+    <div className="productCard">
       <div>
         <span
           className="price"
           data-testid={ `customer_products__element-card-price-${id}` }
         >
-          {price}
+          {`R$ ${priceFormat(price)}`}
         </span>
         <img
           className="image"
@@ -37,7 +41,6 @@ function Cards({ products }) {
         className="quantity"
         type="number"
         data-testid={ `customer_products__input-card-quantity-${id}` }
-        value={ quantity }
       />
       <button
         className="btnadd"

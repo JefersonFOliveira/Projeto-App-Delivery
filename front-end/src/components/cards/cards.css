@@ -31,7 +31,7 @@
   z-index: 1;
 }
 
-.btnQuantity {
+.btnadd, .btnrm {
   background-color: rgb(40, 198, 65);
   border: none;
   border-radius: 6%;
@@ -42,7 +42,7 @@
   text-decoration: none;
 }
 
-.qtdValue {
+.quantity {
   color: black;
   font-size: 16px;
   padding: 5px;

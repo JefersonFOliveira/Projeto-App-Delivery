@@ -16,7 +16,7 @@ function Products() {
         const dbResult = await axios({
           method: 'get',
           url: 'http://localhost:3001/products',
-          data: { headers: { authorization: getlocalStorage('user').token } },
+          headers: { Authorization: getlocalStorage('user').token },
         });
         if (dbResult.status === OK) setProducts(dbResult.data);
       } catch (err) {
