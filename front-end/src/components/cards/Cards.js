@@ -1,24 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import priceFormat from '../../helpers/priceFormat';
-// import Context from '../../context/index';
+import Context from '../../context/index';
 import './cards.css';
 
 function Cards({ products }) {
   const { price, urlimage, name, id } = products;
   const [quantity, setQuantity] = useState(0);
-  // const { cart, setCart } = useContext(Context);
+  const { cart, setCart } = useContext(Context);
+
+  useEffect(() => {
+    const itensCard = cart.find((item) => item.id === id);
+    if (itensCard) {
+      setQuantity(itensCard.quantity);
+    } else {
+      setQuantity(0);
+    }
+  }, [cart]);
+
+  useEffect(() => {
+    const itemCart = cart.find((item) => item.id === id);
+    if (!itemCart) {
+      const totalPrice = (parseFloat(price) * quantity).toFixed(2);
+      return setCart([...cart, { price, urlimage, name, id, quantity, totalPrice }]);
+    }
+    if (itemCart) {
+      itemCart.totalPrice = (parseFloat(price) * quantity).toFixed(2);
+      itemCart.quantity = quantity;
+      setCart([...cart]);
+    }
+    if (itemCart.quantity <= 0) {
+      const newItemCart = cart.filter((item) => item.id !== id);
+      return setCart(newItemCart);
+    }
+  }, [quantity]);
+
+  useEffect(() => {
+    setCart([...cart]);
+  }, []);
 
   const btnAdd = () => {
     setQuantity(quantity + 1);
   };
 
   const btnRemove = () => {
-    setQuantity(quantity - 1);
-  };
-
-  const quantityChosen = () => {
-    // const sumValues = +value;
+    if (quantity >= 1) setQuantity(quantity - 1);
   };
 
   return (
@@ -47,7 +73,6 @@ function Cards({ products }) {
         type="button"
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         onClick={ btnRemove }
-        disabled={ quantity === 0 }
       >
         -
       </button>
@@ -56,7 +81,7 @@ function Cards({ products }) {
         type="number"
         data-testid={ `customer_products__input-card-quantity-${id}` }
         value={ quantity }
-        onChange={ quantityChosen }
+        onChange={ ({ target }) => setQuantity(target.value) }
       />
       <button
         className="btnadd"
