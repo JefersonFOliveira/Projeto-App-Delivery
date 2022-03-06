@@ -9,14 +9,14 @@ function Cards({ products }) {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(Context);
 
-  useEffect(() => {
-    const itensCard = cart.find((item) => item.id === id);
-    if (itensCard) {
-      setQuantity(itensCard.quantity);
-    } else {
-      setQuantity(0);
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   const itensCard = cart.find((item) => item.id === id);
+  //   if (itensCard) {
+  //     setQuantity(itensCard.quantity);
+  //   } else {
+  //     setQuantity(0);
+  //   }
+  // }, [cart]);
 
   useEffect(() => {
     const itemCart = cart.find((item) => item.id === id);

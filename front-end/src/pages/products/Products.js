@@ -20,7 +20,7 @@ function Products() {
     let priceCart = 0.00;
     const result = cart.map(({ totalPrice }) => {
       const sumPrice = priceCart + parseFloat(totalPrice);
-      priceCart = sumCartPrice;
+      priceCart = sumPrice;
       return sumPrice;
     });
 
