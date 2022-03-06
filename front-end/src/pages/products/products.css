@@ -1,0 +1,26 @@
+.productList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto 130px;
+  margin-top: 50px;
+  max-width: 90vw;
+}
+
+.BtnPosition {
+  align-content: center;
+  bottom: 10px;
+  position: fixed;
+  right: 0;
+  width: 30%;
+}
+
+.btnCart {
+  background-color: rgb(3, 107, 82);
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 15px 32px;
+  text-decoration: none;
+}

@@ -1,0 +1,30 @@
+header {
+  align-items: center;
+  background-color: rgb(3, 107, 82);
+  box-shadow: 1px 3px 3px lightgrey;
+  display: flex;
+  flex-grow: 0;
+  font-family: sans-serif;
+  font-size: 20px;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+header nav {
+  flex-grow: 2;
+}
+
+nav a, .logout {
+  border-radius: 6px;
+  color: #fdfdf8;
+  font-weight: 900;
+  margin: 0 0.5em;
+  padding: 6px 9px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.name {
+  font-weight: 600;
+  margin-right: 3em;
+}
