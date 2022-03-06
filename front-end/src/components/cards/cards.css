@@ -1,0 +1,51 @@
+.productCard {
+  border: solid lightgray 1px;
+  border-radius: 9px;
+  box-shadow: 0 0 15px -3px lightgray;
+  margin: 10px;
+  padding: 20px;
+}
+
+.productCard img {
+  display: block;
+  margin: 0 auto;
+  width: 160px;
+}
+
+.productCard div:nth-child( 2 ) {
+  text-align: center;
+}
+
+.productCard input {
+  border: none;
+  width: 2em;
+}
+
+.productCard button {
+  font-weight: 900;
+  width: 30px;
+}
+
+.price {
+  display: block;
+  z-index: 1;
+}
+
+.btnadd, .btnrm {
+  background-color: rgb(40, 198, 65);
+  border: none;
+  border-radius: 6%;
+  color: white;
+  font-size: 16px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.quantity {
+  color: black;
+  font-size: 16px;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+}

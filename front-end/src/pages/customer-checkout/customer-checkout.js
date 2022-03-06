@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../../components/Header';
+import Context from '../../context/index';
 
 const fakecheckouts = [
   {
@@ -21,6 +22,10 @@ const fakecheckouts = [
 function CustomerCheckout() {
   const dataTestName = 'customer_checkout__element-order-table-';
   const total = fakecheckouts.reduce((acc, curr) => acc + curr.total, 0);
+  // const user = JSON.parse(localStorage.getItem('user'));
+  const { cart } = useContext(Context);
+  console.log(cart, 'CARRINHO');
+
   const handleButtonCheckout = () => {
     alert('Checkout Successful');
   };
@@ -68,7 +73,14 @@ function CustomerCheckout() {
               <td
                 data-testid={ `${dataTestName}remove-${i}` }
               >
-                <button type="button">Remover</button>
+                <button
+                  type="button"
+                  onClick={ () => {
+                    fakecheckouts.splice(i, 1);
+                  } }
+                >
+                  Remover
+                </button>
               </td>
             </tr>
           ))}
