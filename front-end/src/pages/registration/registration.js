@@ -23,13 +23,18 @@ function Register() {
     }
   }, [password, email, name]);
 
-  async function handleRegister() {
+  async function handleRegister(e) {
     try {
-      await axios({
+      e.preventDefault();
+      const { data: { token } } = await axios({
         method: 'post',
         url: 'http://localhost:3001/registration',
         data: { name, email, password },
       });
+      const user = { name, email, role: 'customer', token };
+      if (token) {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
       setErrorVisibility('hidden');
       setLogged(true);
     } catch (error) {
