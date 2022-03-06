@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import hashMd5 from '../../helpers/hashMd5';
 
 function Register() {
   const [name, setName] = useState('');
@@ -26,15 +27,15 @@ function Register() {
   async function handleRegister(e) {
     try {
       e.preventDefault();
+      const hashPassword = hashMd5(password);
+      console.log(hashPassword);
       const { data: { token } } = await axios({
         method: 'post',
         url: 'http://localhost:3001/registration',
-        data: { name, email, password },
+        data: { name, email, password: hashPassword },
       });
       const user = { name, email, role: 'customer', token };
-      if (token) {
-        localStorage.setItem('user', JSON.stringify(user));
-      }
+      localStorage.setItem('user', JSON.stringify(user));
       setErrorVisibility('hidden');
       setLogged(true);
     } catch (error) {
@@ -51,7 +52,10 @@ function Register() {
     <div className="login-page">
       { logged ? <Navigate to="/customer/products" /> : null }
       <h1 className="logo">Delivey APP</h1>
-      <form className="login-form">
+      <form
+        className="login-form"
+        onSubmit={ handleRegister }
+      >
         <label htmlFor="name" className="label">
           <p className="label-text">Nome</p>
           <input
