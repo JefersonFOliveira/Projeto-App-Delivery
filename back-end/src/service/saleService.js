@@ -1,8 +1,9 @@
-const { Sale, Product, User } = require('../database/models');
+const { Sale, SalesProducts, Product, User } = require('../database/models');
 const statusCode = require('../utilities/statusCodes');
 
 async function create(body) {
-  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber } = body;
+  const statusOrder = 'pendente';
+  const { userId, sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = body;
 
   const createdUser = await Sale.create(
     { 
@@ -11,15 +12,15 @@ async function create(body) {
       totalPrice,
       deliveryAddress,
       deliveryNumber,
-      saleDate: new Date(),
+      status: statusOrder
     },
   );
 
-  // products.forEach(async (product) => {
-  //   const { id, quantity } = product;
-  //   await SalesProducts
-  //   .create({ saleId: createdUser.dataValues.id, productId: id, quantity });
-  // });
+  products.forEach(async (product) => {
+    const { id, quantity } = product;
+    await SalesProducts
+    .create({ saleId: createdUser.dataValues.id, productId: id, quantity });
+  });
 
   return { data: createdUser.dataValues.id, code: statusCode.CREATED };
 }

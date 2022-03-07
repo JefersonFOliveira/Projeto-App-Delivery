@@ -4,23 +4,22 @@ module.exports = (sequelize, DataTypes) => {
     totalPrice: { type: DataTypes.DECIMAL(9,2), field: 'total_price' },
     deliveryAddress: { type: DataTypes.STRING, field: 'delivery_address' },
     deliveryNumber: { type: DataTypes.STRING, field: 'delivery_number' },
-    saleDate: { type: DataTypes.DATE, field: 'sale_date' },
-    updatedAt: DataTypes.DATE,
     status: DataTypes.STRING,
     userId: { type: DataTypes.INTEGER, field: 'user_id', foreignKey: true },
     sellerId: { type: DataTypes.INTEGER, field: 'seller_id' },
-    sellerName: { type: DataTypes.INTEGER, field: 'seller_name' },
   },
   {
-    timestamps: false,
+    timestamps: true,
+    updatedAt: false,
+    createdAt: 'sale_date',
     tableName: 'sales',
     underscored: true,
   });
 
   Sale.associate = (models) => {
     Sale.belongsTo(models.User,
-      { foreignKey: 'user_id', as: 'user' },
-      { foreignKey: 'seller_Id', as: 'user' }
+      { foreignKey: 'userId', as: 'user' },
+      { foreignKey: 'sellerId', as: 'user' }
   )};
   return Sale;
 };
