@@ -44,9 +44,11 @@ function CustomerCheckout() {
       data: {
         userId: userState.id,
         sellerId: currSeller,
+        sellerName: sellers.find((seller) => seller.id == currSeller).name,
         totalPrice: totalCart,
         deliveryAddress: userAddress.address,
         deliveryNumber: userAddress.number,
+        status: "PENDENTE",
       },
     });
   };
