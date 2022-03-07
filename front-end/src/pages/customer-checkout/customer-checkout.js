@@ -48,7 +48,7 @@ function CustomerCheckout() {
         totalPrice: totalCart,
         deliveryAddress: userAddress.address,
         deliveryNumber: userAddress.number,
-        status: 'PENDENTE',
+        stats: 'PENDENTE',
       },
     });
   };
