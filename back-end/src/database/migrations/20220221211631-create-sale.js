@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.DATE,
         field: 'sale_date',
       },
-      updatedAt: {
+      updated_at: {
         type: Sequelize.DATE
       },
       status: {

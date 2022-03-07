@@ -11,6 +11,16 @@ async function create(req, res) {
   }
 }
 
+async function getAllSales(req, res) {
+  try {
+    const { data, code } = await saleService.getAllSales();
+
+    return res.status(code).json(data);
+  } catch (err) {
+    return res.status(status.NOT_FOUND).json({ error: err.message });
+  }
+}
+
 async function getByUserId(req, res) {
   try {
     const { id } = req.params;
@@ -55,4 +65,5 @@ module.exports = {
   getByUserId,
   getByOrderId,
   updateStatus,
+  getAllSales,
 };
