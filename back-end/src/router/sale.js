@@ -29,4 +29,9 @@ router.get(
   saleController.getByUserId,
 );
 
+router.get(
+  '/',
+  saleController.getAllSales,
+);
+
 module.exports = router;

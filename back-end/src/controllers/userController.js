@@ -18,6 +18,7 @@ async function create(req, res) {
 async function login(req, res) {
   try {
     const { email, password } = req.body;
+    
     const { notFound, invalidPassword, code, error, data } = await userService
     .loginService({ email, password });
 
