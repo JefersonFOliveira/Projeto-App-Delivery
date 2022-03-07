@@ -1,34 +1,59 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 import Header from '../../components/Header';
 import Context from '../../context/index';
 
-const fakecheckouts = [
-  {
-    item: 1,
-    name: 'Coca-Cola',
-    quantity: 1,
-    price: 2.50,
-    total: 10.50,
-  },
-  {
-    item: 1,
-    name: 'Pepsi-cola',
-    quantity: 3,
-    price: 13.50,
-    total: 23.32,
-  },
-];
-
 function CustomerCheckout() {
   const dataTestName = 'customer_checkout__element-order-table-';
-  const total = fakecheckouts.reduce((acc, curr) => acc + curr.total, 0);
-  // const user = JSON.parse(localStorage.getItem('user'));
-  const { cart } = useContext(Context);
-  console.log(cart, 'CARRINHO');
+  const [sellers, setSellers] = useState([]);
+  const [currSeller, setCurrSeller] = useState(2);
+  const { cart, totalCart } = useContext(Context);
+  const [userState, setUserState] = useState({});
+  const [userAddress, setUserAddress] = useState({});
 
-  const handleButtonCheckout = () => {
-    alert('Checkout Successful');
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!user) {
+      navigate('/login');
+    }
+    setUserState(user);
+    const getAllSellers = async () => {
+      try {
+        const { data } = await axios({
+          method: 'get',
+          url: 'http://localhost:3001/sellers',
+          headers: { Authorization: user.token },
+        });
+        setSellers(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    getAllSellers();
+  }, [cart]);
+
+  const submitOrder = async (e) => {
+    e.preventDefault();
+    console.log(`${userState.id}  ID`, currSeller, totalCart, userAddress);
+    await axios({
+      method: 'post',
+      url: 'http://localhost:3001/sales',
+      headers: { Authorization: userState.token },
+      data: {
+        userId: userState.id,
+        sellerId: currSeller,
+        totalPrice: totalCart,
+        deliveryAddress: userAddress.address,
+        deliveryNumber: userAddress.number,
+      },
+    });
   };
+
+  // const handleButtonCheckout = () => {
+  //   alert('Checkout Successful');
+  // };
   return (
     <div>
       <Header />
@@ -43,35 +68,35 @@ function CustomerCheckout() {
             <th>Sub-total</th>
             <th>Remover Item</th>
           </tr>
-          {fakecheckouts.map((checkout, i) => (
-            <tr key={ i }>
+          {cart.map((item, indice) => (
+            <tr key={ indice }>
               <td
-                data-testid={ `${dataTestName}item-number-${i}` }
+                data-testid={ `${dataTestName}item-number-${indice}` }
               >
-                {i + 1}
+                {indice + 1}
               </td>
               <td
-                data-testid={ `${dataTestName}name-${i}` }
+                data-testid={ `${dataTestName}name-${indice}` }
               >
-                {checkout.name}
+                {item.name}
               </td>
               <td
-                data-testid={ `${dataTestName}quantity-${i}` }
+                data-testid={ `${dataTestName}quantity-${indice}` }
               >
-                {checkout.quantity}
+                {item.quantity}
               </td>
               <td
-                data-testid={ `${dataTestName}unit-price-${i}` }
+                data-testid={ `${dataTestName}unit-price-${indice}` }
               >
-                {checkout.price}
+                {item.price}
               </td>
               <td
-                data-testid={ `${dataTestName}sub-total-${i}` }
+                data-testid={ `${dataTestName}sub-total-${indice}` }
               >
-                {checkout.total}
+                {item.totalPrice}
               </td>
               <td
-                data-testid={ `${dataTestName}remove-${i}` }
+                data-testid={ `${dataTestName}remove-${indice}` }
               >
                 <button
                   type="button"
@@ -88,17 +113,31 @@ function CustomerCheckout() {
         <h2
           data-testid="customer_checkout__element-order-total-price"
         >
-          { `Total: R$ ${total}` }
+          { `Total: R$ ${totalCart}` }
         </h2>
       </main>
-      <form>
-        <label htmlFor="seller">
+      <form onSubmit={ submitOrder }>
+        <label htmlFor="sellers">
           P. Vendedora Responsável
-          <input
-            type="text"
-            id="seller"
-            data-testid="customer_checkout__select-seller"
-          />
+          {
+            sellers.length && (
+              <select
+                id="sellers"
+                data-testid="customer_checkout__select-seller"
+                defaultValue={ 2 }
+                onChange={ ({ target }) => setCurrSeller(Number(target.value)) }
+              >
+                { sellers.map((seller, index) => (
+                  <option
+                    key={ index }
+                    value={ seller.id }
+                  >
+                    { seller.name }
+                  </option>
+                ))}
+              </select>
+            )
+          }
         </label>
         <label htmlFor="address">
           Endereço
@@ -106,6 +145,10 @@ function CustomerCheckout() {
             type="text"
             id="address"
             data-testid="customer_checkout__input-address"
+            value={ userAddress.address }
+            onChange={
+              ({ target }) => setUserAddress({ ...userAddress, address: target.value })
+            }
           />
         </label>
         <label htmlFor="number">
@@ -114,12 +157,16 @@ function CustomerCheckout() {
             type="text"
             id="number"
             data-testid="customer_checkout__input-addressNumber"
+            value={ userAddress.number }
+            onChange={
+              ({ target }) => setUserAddress({ ...userAddress, number: target.value })
+            }
           />
         </label>
         <button
           type="submit"
           data-testid="customer_checkout__button-submit-order"
-          onClick={ handleButtonCheckout }
+          onClick={ submitOrder }
         >
           Finalizar pedido
         </button>

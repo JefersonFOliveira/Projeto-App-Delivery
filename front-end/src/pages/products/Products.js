@@ -13,7 +13,7 @@ const OK = 200;
 function Products() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const { cart } = useContext(Context);
+  const { cart, setTotalCart } = useContext(Context);
   const [sumCartPrice, setSumCartPrice] = useState(0);
 
   useEffect(() => {
@@ -26,7 +26,8 @@ function Products() {
 
     priceCart = ((result[result.length - 1] * 100) / 100);
     setSumCartPrice(priceCart);
-  }, [cart]);
+    setTotalCart(sumCartPrice);
+  }, [cart, setTotalCart, sumCartPrice]);
 
   useEffect(() => {
     const fetch = async () => {

@@ -8,6 +8,7 @@ export default function Provider({ children }) {
   const [warning, setWarning] = useState('block');
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [totalCart, setTotalCart] = useState(0);
 
   const context = {
     email,
@@ -20,6 +21,8 @@ export default function Provider({ children }) {
     setProducts,
     cart,
     setCart,
+    totalCart,
+    setTotalCart,
   };
 
   return (
