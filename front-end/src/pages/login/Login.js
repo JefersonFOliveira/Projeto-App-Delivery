@@ -45,7 +45,7 @@ function Login() {
         localStorage.setItem('user', JSON.stringify(dbResult.data));
         if (dbResult.data.role === 'customer') navigate('/customer/products');
         if (dbResult.data.role === 'administrator') navigate('/admin/manage');
-        if (dbResult.data.role === 'seler') navigate('/seller/order');
+        if (dbResult.data.role === 'seller') navigate('/seller/orders');
       }
     } catch (err) {
       console.error(err.message);
