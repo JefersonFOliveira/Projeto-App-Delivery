@@ -1,8 +1,9 @@
-const { Sale, SalesProducts, Product, User } = require('../database/models');
+const { Sale, Product, User } = require('../database/models');
 const statusCode = require('../utilities/statusCodes');
 
 async function create(body) {
-  const { userId, sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = body;
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber } = body;
+
   const createdUser = await Sale.create(
     { 
       userId,
@@ -12,15 +13,21 @@ async function create(body) {
       deliveryNumber,
       saleDate: new Date(),
     },
-    );
+  );
 
-  products.forEach(async (product) => {
-    const { id, quantity } = product;
-    await SalesProducts
-    .create({ saleId: createdUser.dataValues.id, productId: id, quantity });
-  });
+  // products.forEach(async (product) => {
+  //   const { id, quantity } = product;
+  //   await SalesProducts
+  //   .create({ saleId: createdUser.dataValues.id, productId: id, quantity });
+  // });
 
   return { data: createdUser.dataValues.id, code: statusCode.CREATED };
+}
+
+async function getAllSales() {
+  const sales = await Sale.findAll();
+
+  return { data: sales, code: statusCode.OK };
 }
 
 async function getSeller(id) {
@@ -81,4 +88,5 @@ module.exports = {
   getByUserId,
   getByOrderId,
   updateStatusService,
+  getAllSales,
 };
