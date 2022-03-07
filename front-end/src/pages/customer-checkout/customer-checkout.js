@@ -44,11 +44,11 @@ function CustomerCheckout() {
       data: {
         userId: userState.id,
         sellerId: currSeller,
-        sellerName: sellers.find((seller) => seller.id == currSeller).name,
+        sellerName: sellers.find((seller) => seller.id === currSeller).name,
         totalPrice: totalCart,
         deliveryAddress: userAddress.address,
         deliveryNumber: userAddress.number,
-        status: "PENDENTE",
+        status: 'PENDENTE',
       },
     });
   };
@@ -90,12 +90,12 @@ function CustomerCheckout() {
               <td
                 data-testid={ `${dataTestName}unit-price-${indice}` }
               >
-                {item.price}
+                {` R$ ${item.price.replace('.', ',')}` }
               </td>
               <td
                 data-testid={ `${dataTestName}sub-total-${indice}` }
               >
-                {item.totalPrice}
+                {` R$ ${item.totalPrice.replace('.', ',')}` }
               </td>
               <td
                 data-testid={ `${dataTestName}remove-${indice}` }
@@ -115,7 +115,7 @@ function CustomerCheckout() {
         <h2
           data-testid="customer_checkout__element-order-total-price"
         >
-          { `Total: R$ ${totalCart}` }
+          { `${String(totalCart).replace('.', ',')}` }
         </h2>
       </main>
       <form onSubmit={ submitOrder }>

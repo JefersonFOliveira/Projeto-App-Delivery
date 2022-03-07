@@ -4,7 +4,7 @@ import moment from 'moment';
 import './orderCard.css';
 
 function OrderCard({ status, cardRole, item }) {
-  const date = moment(item.sale_date).format('DD/MM/YYYY');
+  const date = moment(item.saleDate).format('DD/MM/YYYY');
 
   return (
     <div className="order-card">
@@ -31,7 +31,7 @@ function OrderCard({ status, cardRole, item }) {
             <span
               data-testid={ `${cardRole}_orders__element-card-price-${item.id}` }
             >
-              {` R$ ${item.total_price}` }
+              {` R$ ${item.totalPrice}` }
             </span>
           </div>
         </div>
@@ -61,7 +61,7 @@ OrderCard.propTypes = {
     updatedAt: PropTypes.string,
     userId: PropTypes.number,
     user_id: PropTypes.number,
-    }).isRequired, 
+  }).isRequired,
 };
 
 export default OrderCard;
