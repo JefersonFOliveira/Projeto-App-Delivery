@@ -1,8 +1,13 @@
-const { Sale, Product, User } = require('../database/models');
+const { Sale, SalesProducts, Product, User } = require('../database/models');
 const statusCode = require('../utilities/statusCodes');
 
 async function create(body) {
+<<<<<<< HEAD
   const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, stats, sellerName } = body;
+=======
+  const statusOrder = 'pendente';
+  const { userId, sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = body;
+>>>>>>> 4711896be742ed157dbe2fce55e6a449ccfea8c6
 
   const createdUser = await Sale.create(
     { 
@@ -11,17 +16,21 @@ async function create(body) {
       totalPrice,
       deliveryAddress,
       deliveryNumber,
+<<<<<<< HEAD
       stats,
       sellerName,
       saleDate: new Date(),
+=======
+      status: statusOrder
+>>>>>>> 4711896be742ed157dbe2fce55e6a449ccfea8c6
     },
   );
 
-  // products.forEach(async (product) => {
-  //   const { id, quantity } = product;
-  //   await SalesProducts
-  //   .create({ saleId: createdUser.dataValues.id, productId: id, quantity });
-  // });
+  products.forEach(async (product) => {
+    const { id, quantity } = product;
+    await SalesProducts
+    .create({ saleId: createdUser.dataValues.id, productId: id, quantity });
+  });
 
   return { data: createdUser.dataValues.id, code: statusCode.CREATED };
 }

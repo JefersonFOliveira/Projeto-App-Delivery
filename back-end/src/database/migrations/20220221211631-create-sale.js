@@ -20,19 +20,12 @@ module.exports = {
         type: Sequelize.STRING,
         field: 'delivery_number',
       },
-      saleDate: {
-        type: Sequelize.DATE,
-        field: 'sale_date',
-      },
-      updated_at: {
-        type: Sequelize.DATE
-      },
       status: {
         type: Sequelize.STRING
       },
-      sellerName: {
-        type: Sequelize.STRING,
-        field: 'seller_name',
+      sale_date: {
+        type: Sequelize.DATE,
+        allowNull: false
       },
       userId: {
         type: Sequelize.INTEGER,
