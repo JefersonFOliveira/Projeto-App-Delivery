@@ -23,9 +23,10 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
-      sale_date: {
+      saleDate: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
+        field: 'sale_date',
       },
       userId: {
         type: Sequelize.INTEGER,

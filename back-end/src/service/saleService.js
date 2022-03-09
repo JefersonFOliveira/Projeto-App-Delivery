@@ -12,7 +12,7 @@ async function create(body) {
       totalPrice,
       deliveryAddress,
       deliveryNumber,
-      status: statusOrder
+      status: statusOrder,
     },
   );
 
