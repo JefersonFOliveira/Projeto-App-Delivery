@@ -7,10 +7,16 @@ function CustomerCheckout() {
   const dataTestName = 'customer_checkout__element-order-table-';
   const [sellers, setSellers] = useState([]);
   const [currSeller, setCurrSeller] = useState(2);
-  const { cart, totalCart } = useContext(Context);
+  const { cart, totalCart, setCart, setTotalCart } = useContext(Context);
   const [userState, setUserState] = useState({});
   const [userAddress, setUserAddress] = useState({});
-  console.log(cart);
+
+  const removeItem = (id) => {
+    const newCart = cart.filter((item) => item.id !== id);
+    console.log(newCart);
+    setCart(newCart);
+  };
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -106,9 +112,7 @@ function CustomerCheckout() {
               >
                 <button
                   type="button"
-                  onClick={ () => {
-                    fakecheckouts.splice(i, 1);
-                  } }
+                  onClick={ removeItem.bind(this, item.id) }
                 >
                   Remover
                 </button>
