@@ -7,10 +7,16 @@ const tokenValidate = require('../validations/validadeJWT');
 const router = Router();
 
 router.get(
-  '/orders',
+  '/',
+  tokenValidate.verifyToken,
+  userController.getByRole,
+  );
+  
+  router.get(
+  '/orders/:id',
   tokenValidate.verifyToken,
   saleController.getByUserId,
-);
+  );
 
 router.put(
   '/orders/:id',

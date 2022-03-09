@@ -19,7 +19,7 @@ function HeaderTwo({ name, role }) {
   const link11 = () => {
     if (role === 'customer') {
       return (
-        <Link to="/" data-testi="customer_products__element-navbar-link-products">
+        <Link to="/customer/products" data-testi="customer_products__element-navbar-link-products">
           PRODUTOS
         </Link>
       );
