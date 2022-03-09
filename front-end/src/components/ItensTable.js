@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function ItensTable({ product }) {
   const { id, name, price, quantityTotal } = product;
   const total = Number(quantityTotal.quantity) * Number(price);
-  
+
   return (
     <tr>
       <td data-testid={ `seller_order_details__element-order-table-item-number-${id}` }>

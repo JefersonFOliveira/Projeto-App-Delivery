@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import HeaderTwo from '../../components/HeaderTwo';
 import getLocalStorage from '../../helpers/getStorage';
-import ItensTable from '../../components/itensTable';
+import ItensTable from '../../components/ItensTable';
 
 function DetailSellersProducts() {
   const [info, setInfo] = useState({

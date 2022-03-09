@@ -6,7 +6,7 @@ import HeaderTwo from '../../components/HeaderTwo';
 
 function SellerProducts() {
   const [productsSeller, setProductsSeller] = useState([]);
-  
+
   useEffect(() => {
     async function api() {
       const { token, id } = getLocalStorage('user');
@@ -23,7 +23,7 @@ function SellerProducts() {
     }
     api();
   }, []);
-  
+
   return (
     <div>
       <HeaderTwo />

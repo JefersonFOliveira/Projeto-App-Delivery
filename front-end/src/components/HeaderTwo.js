@@ -8,7 +8,7 @@ function HeaderTwo() {
   const logout = () => {
     localStorage.removeItem('user');
   };
-  
+
   return (
     <header>
       <nav>
