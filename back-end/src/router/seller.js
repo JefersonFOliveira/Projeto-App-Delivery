@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-// const userController = require('../controllers/userController');
+const userController = require('../controllers/userController');
 const saleController = require('../controllers/saleController');
 const tokenValidate = require('../validations/validadeJWT');
 
