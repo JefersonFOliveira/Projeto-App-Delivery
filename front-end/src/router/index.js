@@ -7,6 +7,7 @@ import Orders from '../pages/orders/Orders';
 import Checkout from '../pages/checkout/Checkout';
 import SellerProducts from '../pages/seller/sellerProducts';
 import DetailSellersProducts from '../pages/detailSellers/DetailSellersProducts';
+import Manager from '../pages/manager/Manager';
 
 function Router() {
   return (
@@ -23,6 +24,8 @@ function Router() {
         path="/seller/orders/:id"
         component={ (props) => <DetailSellersProducts { ...props } /> }
       />
+      <Route exact path="/admin/manage" element={ <Manager /> } />
+
     </Routes>
   );
 }
