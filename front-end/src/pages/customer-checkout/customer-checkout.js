@@ -18,6 +18,16 @@ function CustomerCheckout() {
   };
 
   useEffect(() => {
+    let sumPrice = 0.00;
+    const result = cart.map(({ totalPrice }) => {
+      const sumPriceItem = sumPrice + parseFloat(totalPrice);
+      sumPrice = sumPriceItem;
+      return sumPrice;
+    });
+    setTotalCart(result[result.length - 1]);
+  }, [cart, setTotalCart]);
+
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     if (!user) {
