@@ -10,7 +10,7 @@ function CustomerCheckout() {
   const { cart, totalCart } = useContext(Context);
   const [userState, setUserState] = useState({});
   const [userAddress, setUserAddress] = useState({});
-
+  console.log(cart);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -37,20 +37,24 @@ function CustomerCheckout() {
   const submitOrder = async (e) => {
     e.preventDefault();
     console.log(`${userState.id}  ID`, currSeller, totalCart, userAddress);
-    await axios({
-      method: 'post',
-      url: 'http://localhost:3001/sales',
-      headers: { Authorization: userState.token },
-      data: {
-        userId: userState.id,
-        sellerId: currSeller,
-        sellerName: sellers.find((seller) => seller.id === currSeller).name,
-        totalPrice: totalCart,
-        deliveryAddress: userAddress.address,
-        deliveryNumber: userAddress.number,
-        stats: 'PENDENTE',
-      },
-    });
+    try {
+      await axios({
+        method: 'post',
+        url: 'http://localhost:3001/sales',
+        headers: { Authorization: userState.token },
+        data: {
+          userId: userState.id,
+          sellerId: currSeller,
+          products: cart,
+          totalPrice: totalCart,
+          deliveryAddress: userAddress.address,
+          deliveryNumber: userAddress.number,
+          stats: 'PENDENTE',
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   // const handleButtonCheckout = () => {
