@@ -5,23 +5,23 @@ import { Link } from 'react-router-dom';
 function ListSellerOrders({ products }) {
   const { id, status, deliveryAddress, deliveryNumber, saleDate, totalPrice } = products;
   const limit = 10;
- 
+
   return (
     <div>
       <Link to={ `/seller/orders/${id}` }>
-        <p data-testi={ `seller_orders__element-order-id-${id}` }>
+        <p data-testid={ `seller_orders__element-order-id-${id}` }>
           {id}
         </p>
-        <p data-testi={ `seller_orders__element-delivery-status-${id}` }>
+        <p data-testid={ `seller_orders__element-delivery-status-${id}` }>
           {status}
         </p>
-        <p data-testi={ `seller_orders__element-card-address-${id}` }>
+        <p data-testid={ `seller_orders__element-card-address-${id}` }>
           {`${deliveryAddress}, ${deliveryNumber}`}
         </p>
-        <p data-testi={ `seller_orders__element-order-date-${id}` }>
+        <p data-testid={ `seller_orders__element-order-date-${id}` }>
           {saleDate.slice(0, limit)}
         </p>
-        <p data-testi={ `seller_orders__element-card-price-${id}` }>
+        <p data-testid={ `seller_orders__element-card-price-${id}` }>
           {totalPrice}
         </p>
       </Link>
