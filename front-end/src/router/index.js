@@ -22,7 +22,7 @@ function Router() {
       <Route
         exact
         path="/seller/orders/:id"
-        component={ (props) => <DetailSellersProducts { ...props } /> }
+        element={ <DetailSellersProducts /> }
       />
       <Route exact path="/admin/manage" element={ <Manager /> } />
 

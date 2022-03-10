@@ -71,7 +71,7 @@ async function getByOrderId(id) {
 
   if (!order) return { code: statusCode.NOT_FOUND, error: 'Sale does not exist' };
 
-  const { seller_id: sellerId } = order;
+  const { sellerId } = order;
   const seller = await getSeller(sellerId);
   const orderInfo = { ...order.dataValues, seller };
 
