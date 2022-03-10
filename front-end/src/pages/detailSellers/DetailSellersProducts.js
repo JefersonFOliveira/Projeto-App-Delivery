@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import HeaderTwo from '../../components/HeaderTwo';
 import getLocalStorage from '../../helpers/getStorage';
@@ -10,6 +11,7 @@ function DetailSellersProducts() {
     id: '',
     saleDate: '',
   });
+  const [totalPrice, setTotalPrice] = useState('');
   const [products, setProducts] = useState([]);
   const [status, setStatus] = useState('');
   const { id } = useParams();
@@ -26,6 +28,7 @@ function DetailSellersProducts() {
       const ok = 200;
       if (dbResult.status === ok) {
         setStatus(dbResult.data.status);
+        setTotalPrice(dbResult.data.totalPrice);
         setInfo(dbResult.data);
         setProducts(dbResult.data.products);
       }
@@ -66,7 +69,7 @@ function DetailSellersProducts() {
           {info.id}
         </p>
         <p data-testid="seller_order_details__element-order-details-label-order-date">
-          {info.saleDate}
+          {moment(info.saleDate).format('DD/MM/yyyy')}
         </p>
         <p
           data-testid="seller_order_details__element-order-details-label-delivery-status"
@@ -91,22 +94,26 @@ function DetailSellersProducts() {
         </button>
       </div>
       <table>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quatidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-Total</th>
-        </tr>
-        {
-          products.map((productOne) => (
-            <ItensTable product={ productOne } key={ productOne.id } />
-          ))
-        }
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quatidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products.map((productOne) => (
+              <ItensTable product={ productOne } key={ productOne.id } />
+            ))
+          }
+        </tbody>
       </table>
       <div>
         <p data-testid="seller_order_details__element-order-total-price">
-          {info.totalPrice}
+          {totalPrice.replace('.', ',')}
         </p>
       </div>
     </div>

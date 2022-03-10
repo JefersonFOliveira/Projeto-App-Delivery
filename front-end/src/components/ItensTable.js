@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function ItensTable({ product }) {
   const { id, name, price, quantityTotal } = product;
-  const total = Number(quantityTotal.quantity) * Number(price);
+  const total = (Number(quantityTotal.quantity) * Number(price)).toFixed(2);
 
   return (
     <tr>
@@ -17,22 +17,22 @@ function ItensTable({ product }) {
         {quantityTotal.quantity}
       </td>
       <td data-testid={ `seller_order_details__element-order-table-unit-price-${id}` }>
-        {price}
+        {price.replace('.', ',')}
       </td>
       <td data-testid={ `seller_order_details__element-order-table-sub-total-${id}` }>
-        {total}
+        {total.toString().replace('.', ',')}
       </td>
     </tr>
   );
 }
 
 ItensTable.propTypes = {
-  product: PropTypes.objectOf({
+  product: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.string,
-    quantityTotal: PropTypes.objectOf({
-      quantity: PropTypes.string,
+    quantityTotal: PropTypes.shape({
+      quantity: PropTypes.number,
     }),
   }).isRequired,
 };
