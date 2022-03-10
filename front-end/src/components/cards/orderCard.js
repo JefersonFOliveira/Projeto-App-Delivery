@@ -49,7 +49,7 @@ function OrderCard({ status, cardRole, item }) {
 OrderCard.propTypes = {
   status: PropTypes.string.isRequired,
   cardRole: PropTypes.string.isRequired,
-  item: PropTypes.InstanceOf(Object).isRequired,
+  item: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default OrderCard;
