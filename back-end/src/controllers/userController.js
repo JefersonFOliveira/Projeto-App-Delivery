@@ -41,8 +41,23 @@ async function getByRole(_req, res) {
   }
 }
 
+async function createByAdmin(req, res) {
+  try {
+    const { name, email, password, role } = req.body;
+    
+    if (role !== 'administrator') {
+    return res.status(statusCode.UNAUTHORIZED).json({ message: 'Unauthorized' });
+  }
+    const { id } = await userService.createUser({ name, email, password });
+    return res.status(statusCode.CREATED).json({ id, name, email, password });
+  } catch (err) {
+    return res.status(statusCode.NOT_FOUND).json({ error: err.message });
+  }
+}
+
 module.exports = {
   create,
   login,
   getByRole,
+  createByAdmin,
 };
