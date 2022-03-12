@@ -49,9 +49,6 @@ function OrderCard({ status, cardRole, item }) {
 OrderCard.propTypes = {
   status: PropTypes.string.isRequired,
   cardRole: PropTypes.string.isRequired,
-<<<<<<< HEAD
-  item: PropTypes.instanceOf(Object).isRequired,
-=======
   item: PropTypes.shape({
     deliveryAddress: PropTypes.string,
     deliveryNumber: PropTypes.string,
@@ -65,7 +62,6 @@ OrderCard.propTypes = {
     userId: PropTypes.number,
     user_id: PropTypes.number,
   }).isRequired,
->>>>>>> d8a3200ac8dfca0b4902fdf79c8536b8a779a61d
 };
 
 export default OrderCard;

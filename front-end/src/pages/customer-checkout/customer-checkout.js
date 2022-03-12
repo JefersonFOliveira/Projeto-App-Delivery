@@ -1,9 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Context from '../../context/index';
+import priceFormat from '../../helpers/priceFormat';
 
 function CustomerCheckout() {
+  const navigate = useNavigate();
   const dataTestName = 'customer_checkout__element-order-table-';
   const [sellers, setSellers] = useState([]);
   const [currSeller, setCurrSeller] = useState(2);
@@ -34,6 +37,7 @@ function CustomerCheckout() {
       navigate('/login');
     }
     setUserState(user);
+
     const getAllSellers = async () => {
       try {
         const { data } = await axios({
@@ -52,9 +56,8 @@ function CustomerCheckout() {
 
   const submitOrder = async (e) => {
     e.preventDefault();
-    console.log(`${userState.id}  ID`, currSeller, totalCart, userAddress);
     try {
-      await axios({
+      const dbResult = await axios({
         method: 'post',
         url: 'http://localhost:3001/sales',
         headers: { Authorization: userState.token },
@@ -68,6 +71,8 @@ function CustomerCheckout() {
           stats: 'PENDENTE',
         },
       });
+      console.log(dbResult);
+      return navigate(`/customer/orders/${dbResult.data}`);
     } catch (error) {
       console.log(error.message);
     }
@@ -82,58 +87,62 @@ function CustomerCheckout() {
       <main>
         <h1>Finalizar pedido</h1>
         <table className="checkout-container">
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
-          </tr>
-          {cart.map((item, indice) => (
-            <tr key={ indice }>
-              <td
-                data-testid={ `${dataTestName}item-number-${indice}` }
-              >
-                {indice + 1}
-              </td>
-              <td
-                data-testid={ `${dataTestName}name-${indice}` }
-              >
-                {item.name}
-              </td>
-              <td
-                data-testid={ `${dataTestName}quantity-${indice}` }
-              >
-                {item.quantity}
-              </td>
-              <td
-                data-testid={ `${dataTestName}unit-price-${indice}` }
-              >
-                {` R$ ${item.price.replace('.', ',')}` }
-              </td>
-              <td
-                data-testid={ `${dataTestName}sub-total-${indice}` }
-              >
-                {` R$ ${item.totalPrice.replace('.', ',')}` }
-              </td>
-              <td
-                data-testid={ `${dataTestName}remove-${indice}` }
-              >
-                <button
-                  type="button"
-                  onClick={ removeItem.bind(this, item.id) }
-                >
-                  Remover
-                </button>
-              </td>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Sub-total</th>
+              <th>Remover Item</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {cart.map((item, indice) => (
+              <tr key={ indice }>
+                <td
+                  data-testid={ `${dataTestName}item-number-${indice}` }
+                >
+                  {indice + 1}
+                </td>
+                <td
+                  data-testid={ `${dataTestName}name-${indice}` }
+                >
+                  {item.name}
+                </td>
+                <td
+                  data-testid={ `${dataTestName}quantity-${indice}` }
+                >
+                  {item.quantity}
+                </td>
+                <td
+                  data-testid={ `${dataTestName}unit-price-${indice}` }
+                >
+                  {` R$ ${item.price.replace('.', ',')}` }
+                </td>
+                <td
+                  data-testid={ `${dataTestName}sub-total-${indice}` }
+                >
+                  {` R$ ${item.totalPrice.replace('.', ',')}` }
+                </td>
+                <td
+                  data-testid={ `${dataTestName}remove-${indice}` }
+                >
+                  <button
+                    type="button"
+                    onClick={ removeItem.bind(this, item.id) }
+                  >
+                    Remover
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
         <h2
           data-testid="customer_checkout__element-order-total-price"
         >
-          { `${String(totalCart).replace('.', ',')}` }
+          { priceFormat(totalCart) }
         </h2>
       </main>
       <form onSubmit={ submitOrder }>
@@ -165,7 +174,6 @@ function CustomerCheckout() {
             type="text"
             id="address"
             data-testid="customer_checkout__input-address"
-            value={ userAddress.address }
             onChange={
               ({ target }) => setUserAddress({ ...userAddress, address: target.value })
             }
@@ -177,7 +185,6 @@ function CustomerCheckout() {
             type="text"
             id="number"
             data-testid="customer_checkout__input-addressNumber"
-            value={ userAddress.number }
             onChange={
               ({ target }) => setUserAddress({ ...userAddress, number: target.value })
             }
