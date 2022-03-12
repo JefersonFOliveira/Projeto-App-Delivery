@@ -6,6 +6,8 @@ const tokenValidate = require('../validations/validadeJWT');
 
 const router = Router();
 
+router.get('/', tokenValidate.verifyToken, userController.getByRole);
+
 router.get(
   '/',
   tokenValidate.verifyToken,

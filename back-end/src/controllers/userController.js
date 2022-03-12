@@ -43,7 +43,9 @@ async function getByRole(_req, res) {
 
 async function createByAdmin(req, res) {
   try {
+    // const { user } = req;
     const { name, email, password, role } = req.body;
+    console.log(name, email, password, role);
     
     if (role !== 'administrator') {
     return res.status(statusCode.UNAUTHORIZED).json({ message: 'Unauthorized' });
