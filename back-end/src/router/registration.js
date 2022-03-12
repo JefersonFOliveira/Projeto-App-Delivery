@@ -9,5 +9,10 @@ router.post(
   registrationValidate.validateRegistration,
   userController.create,
 );
+router.post(
+  '/admin',
+  registrationValidate.validateRegistration,
+  userController.createByAdmin,
+);
 
 module.exports = router;

@@ -2,7 +2,7 @@ const { Sale, SalesProducts, Product, User } = require('../database/models');
 const statusCode = require('../utilities/statusCodes');
 
 async function create(body) {
-  const statusOrder = 'pendente';
+  const statusOrder = 'Pendente';
   const { userId, sellerId, products, totalPrice, deliveryAddress, deliveryNumber } = body;
 
   const createdUser = await Sale.create(

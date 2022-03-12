@@ -16,3 +16,15 @@ export const validLogin = (email, password) => {
   if (validEmail(email) && validPassWord(password)) return true;
   return false;
 };
+
+export const validName = (name) => {
+  const nameLength = 12;
+  if (!name) return false;
+  if (name.length < nameLength) return false;
+  return true;
+};
+
+export const validRegister = (email, password, name) => {
+  if (validEmail(email) && validPassWord(password) && validName(name)) return true;
+  return false;
+};

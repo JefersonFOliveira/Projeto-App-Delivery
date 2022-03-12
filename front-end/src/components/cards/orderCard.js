@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import './orderCard.css';
+import priceFormat from '../../helpers/priceFormat';
 
 function OrderCard({ status, cardRole, item }) {
-  const date = moment(item.sale_date).format('DD/MM/YYYY');
+  const date = moment(item.saleDate).format('DD/MM/YYYY');
 
   return (
     <div className="order-card">
@@ -31,7 +32,7 @@ function OrderCard({ status, cardRole, item }) {
             <span
               data-testid={ `${cardRole}_orders__element-card-price-${item.id}` }
             >
-              {` R$ ${item.total_price}` }
+              {` R$ ${priceFormat(item.totalPrice)}` }
             </span>
           </div>
         </div>
@@ -49,7 +50,19 @@ function OrderCard({ status, cardRole, item }) {
 OrderCard.propTypes = {
   status: PropTypes.string.isRequired,
   cardRole: PropTypes.string.isRequired,
-  item: PropTypes.instanceOf(Object).isRequired,
+  item: PropTypes.shape({
+    deliveryAddress: PropTypes.string,
+    deliveryNumber: PropTypes.string,
+    id: PropTypes.number,
+    saleDate: PropTypes.string,
+    sellerId: PropTypes.number,
+    sellerName: PropTypes.string,
+    status: PropTypes.string,
+    totalPrice: PropTypes.string,
+    updatedAt: PropTypes.string,
+    userId: PropTypes.number,
+    user_id: PropTypes.number,
+  }).isRequired,
 };
 
 export default OrderCard;
