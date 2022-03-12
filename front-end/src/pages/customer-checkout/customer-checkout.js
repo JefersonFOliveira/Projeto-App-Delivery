@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
+import TableHeader from '../../components/tableHeader/TableHeader';
 import Context from '../../context/index';
 import priceFormat from '../../helpers/priceFormat';
 
@@ -88,14 +89,7 @@ function CustomerCheckout() {
         <h1>Finalizar pedido</h1>
         <table className="checkout-container">
           <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-              <th>Remover Item</th>
-            </tr>
+            <TableHeader />
           </thead>
           <tbody>
             {cart.map((item, indice) => (
