@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import './orderCard.css';
+import priceFormat from '../../helpers/priceFormat';
 
 function OrderCard({ status, cardRole, item }) {
   const date = moment(item.saleDate).format('DD/MM/YYYY');
@@ -31,7 +32,7 @@ function OrderCard({ status, cardRole, item }) {
             <span
               data-testid={ `${cardRole}_orders__element-card-price-${item.id}` }
             >
-              {` R$ ${item.totalPrice}` }
+              {` R$ ${priceFormat(item.totalPrice)}` }
             </span>
           </div>
         </div>
