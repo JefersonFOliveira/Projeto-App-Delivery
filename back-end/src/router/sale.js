@@ -11,12 +11,6 @@ router.post(
   saleController.create,
 );
 
-// router.get(
-//   '/costumer/:id',
-//   tokenValidate.verifyToken,
-//   saleController.getByUserId,
-// );
-
 router.get(
   '/:id',
   tokenValidate.verifyToken,
