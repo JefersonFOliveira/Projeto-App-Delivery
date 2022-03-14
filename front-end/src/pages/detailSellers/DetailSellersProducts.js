@@ -38,7 +38,7 @@ function DetailSellersProducts() {
 
   useEffect(() => {
     async function updateApi() {
-      if (status !== 'pendente') {
+      if (status.toLowerCase() !== 'pendente') {
         const dbResult = await axios({
           method: 'put',
           url: `http://localhost:3001/sellers/orders/${id}`,
