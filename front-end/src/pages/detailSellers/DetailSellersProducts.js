@@ -38,7 +38,7 @@ function DetailSellersProducts() {
 
   useEffect(() => {
     async function updateApi() {
-      if (status !== 'pendente') {
+      if (status.toLowerCase() !== 'pendente') {
         const dbResult = await axios({
           method: 'put',
           url: `http://localhost:3001/sellers/orders/${id}`,
@@ -55,9 +55,9 @@ function DetailSellersProducts() {
 
   function changeTheStatus(e) {
     if (e.target.innerHTML === 'PREPARAR PEDIDOS') {
-      setStatus('preparando');
+      setStatus('Preparando');
     } else {
-      setStatus('em trânsito');
+      setStatus('Em Trânsito');
     }
   }
 
@@ -79,14 +79,14 @@ function DetailSellersProducts() {
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
-          disabled={ status !== 'pendente' }
+          disabled={ status.toLowerCase() !== 'pendente' }
           onClick={ changeTheStatus }
         >
           PREPARAR PEDIDOS
         </button>
         <button
           type="button"
-          disabled={ status !== 'preparando' }
+          disabled={ status.toLowerCase() !== 'preparando' }
           onClick={ changeTheStatus }
           data-testid="seller_order_details__button-dispatch-check"
         >
