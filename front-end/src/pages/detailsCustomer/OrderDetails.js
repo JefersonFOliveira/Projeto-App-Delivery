@@ -14,7 +14,7 @@ function DetailSellersProducts() {
     saleDate: '',
   });
   const [products, setProducts] = useState([]);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('Pendente');
   const { id } = useParams();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function DetailSellersProducts() {
 
   useEffect(() => {
     async function updateApi() {
-      if (status !== 'pendente') {
+      if (status !== 'Pendente') {
         const dbResult = await axios({
           method: 'put',
           url: `http://localhost:3001/sellers/orders/${id}`,
@@ -54,7 +54,7 @@ function DetailSellersProducts() {
   }, [status, id]);
 
   function changeTheStatus() {
-    setStatus('ENTREGUE');
+    setStatus('Entregue');
   }
 
   return (
@@ -86,11 +86,11 @@ function DetailSellersProducts() {
               <span
                 data-testid={ longTest }
               >
-                { order.status }
+                { status }
               </span>
               <button
                 type="button"
-                disabled={ !order.status.includes('Em Trânsito') }
+                disabled={ (status !== 'Em Trânsito') }
                 onClick={ changeTheStatus }
                 data-testid="customer_order_details__button-delivery-check"
               >

@@ -37,7 +37,7 @@ function Orders() {
             <Link to={ `/customer/orders/${item.id}` } className="link" key={ item.id }>
               <OrderCard
                 key={ item.id }
-                status="Pendente"
+                status={ item.status || 'Pendente' }
                 cardRole="customer"
                 item={ item }
               />

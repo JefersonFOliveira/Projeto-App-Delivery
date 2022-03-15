@@ -39,9 +39,7 @@ function OrderCard({ status, cardRole, item }) {
         <div
           data-testid="seller_orders__element-card-address-<id>"
           className="small-text d-none"
-        >
-          Rua Irmãos Monteiro, Bairo Pedras, 851
-        </div>
+        />
       </div>
     </div>
   );

@@ -17,7 +17,6 @@ function CustomerCheckout() {
 
   const removeItem = (id) => {
     const newCart = cart.filter((item) => item.id !== id);
-    console.log(newCart);
     setCart(newCart);
   };
 
@@ -69,10 +68,8 @@ function CustomerCheckout() {
           totalPrice: totalCart,
           deliveryAddress: userAddress.address,
           deliveryNumber: userAddress.number,
-          stats: 'PENDENTE',
         },
       });
-      console.log(dbResult);
       return navigate(`/customer/orders/${dbResult.data}`);
     } catch (error) {
       console.log(error.message);
